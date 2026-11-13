@@ -27,7 +27,8 @@ public sealed class ProjectDemonstrationStepsFactory
             new NativeProcessIdentifierDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
             new WindowsApiLimitationsDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
             new NativeFunctionErrorHandlingDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
-            new AssemblyVersionsDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter)
+            new AssemblyVersionsDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
+            new CompatibilityWrapperDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter)
         };
 
         return projectDemonstrationSteps;
