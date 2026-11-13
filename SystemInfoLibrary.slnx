@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/SystemInfoLibrary/SystemInfoLibrary.csproj" />
     <Project Path="src/SystemInfoLibrary.ConsoleApplication/SystemInfoLibrary.ConsoleApplication.csproj" />
   </Folder>
 </Solution>
