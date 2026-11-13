@@ -1,6 +1,9 @@
 using Variant16.SystemInfoLibrary.Application.Abstractions;
 using Variant16.SystemInfoLibrary.Application.Services;
+using Variant16.SystemInfoLibrary.Infrastructure.Catalogs;
+using Variant16.SystemInfoLibrary.Infrastructure.FileSystem;
 using Variant16.SystemInfoLibrary.Infrastructure.Native;
+using Variant16.SystemInfoLibrary.Infrastructure.PortableExecutable;
 using Variant16.SystemInfoLibrary.Infrastructure.Reflection;
 using Variant16.SystemInfoLibrary.Infrastructure.Runtime;
 using Variant16.SystemInfoLibrary.PublicApi;
@@ -24,15 +27,32 @@ public static class SystemInformationLibraryFacadeFactory
             nativeFunctionInvocationGuard);
 
         var assemblyVersionInformationProvider = new ReflectionAssemblyVersionInformationProvider();
+        var dynamicLinkLibraryComparisonService = CreateDynamicLinkLibraryComparisonService();
 
         var systemInformationLibraryFacade = new SystemInformationLibraryFacade(
             processIdentifierProvider,
             operatingSystemPlatformInformationProvider,
             nativeFunctionErrorHandlingScenarioRunner,
             windowsApiLimitationInspector,
-            assemblyVersionInformationProvider);
+            assemblyVersionInformationProvider,
+            dynamicLinkLibraryComparisonService);
 
         return systemInformationLibraryFacade;
+    }
+
+    private static IDynamicLinkLibraryComparisonService CreateDynamicLinkLibraryComparisonService()
+    {
+        var dynamicLinkLibraryLocationProvider = new DefaultDynamicLinkLibraryLocationProvider();
+        var managedAssemblyMetadataReadabilityChecker = new ManagedAssemblyMetadataReadabilityChecker();
+        var portableExecutableFileInspector = new PortableExecutableFileInspector(managedAssemblyMetadataReadabilityChecker);
+        var dynamicLinkLibraryComparisonCriteriaCatalog = new StaticDynamicLinkLibraryComparisonCriteriaCatalog();
+
+        var dynamicLinkLibraryComparisonService = new DynamicLinkLibraryComparisonService(
+            dynamicLinkLibraryLocationProvider,
+            portableExecutableFileInspector,
+            dynamicLinkLibraryComparisonCriteriaCatalog);
+
+        return dynamicLinkLibraryComparisonService;
     }
 
     private static IProcessIdentifierProvider CreateProcessIdentifierProvider(

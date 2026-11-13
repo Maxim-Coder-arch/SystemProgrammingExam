@@ -15,18 +15,22 @@ public sealed partial class SystemInformationLibraryFacade
 
     private readonly IAssemblyVersionInformationProvider _assemblyVersionInformationProvider;
 
+    private readonly IDynamicLinkLibraryComparisonService _dynamicLinkLibraryComparisonService;
+
     public SystemInformationLibraryFacade(
         IProcessIdentifierProvider processIdentifierProvider,
         IOperatingSystemPlatformInformationProvider operatingSystemPlatformInformationProvider,
         INativeFunctionErrorHandlingScenarioRunner nativeFunctionErrorHandlingScenarioRunner,
         IWindowsApiLimitationInspector windowsApiLimitationInspector,
-        IAssemblyVersionInformationProvider assemblyVersionInformationProvider)
+        IAssemblyVersionInformationProvider assemblyVersionInformationProvider,
+        IDynamicLinkLibraryComparisonService dynamicLinkLibraryComparisonService)
     {
         _processIdentifierProvider = processIdentifierProvider;
         _operatingSystemPlatformInformationProvider = operatingSystemPlatformInformationProvider;
         _nativeFunctionErrorHandlingScenarioRunner = nativeFunctionErrorHandlingScenarioRunner;
         _windowsApiLimitationInspector = windowsApiLimitationInspector;
         _assemblyVersionInformationProvider = assemblyVersionInformationProvider;
+        _dynamicLinkLibraryComparisonService = dynamicLinkLibraryComparisonService;
     }
 
     public ProcessIdentifierInformation GetCurrentProcessIdentifierInformation()
