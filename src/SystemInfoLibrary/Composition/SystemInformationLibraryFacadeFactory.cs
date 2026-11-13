@@ -1,4 +1,5 @@
 using Variant16.SystemInfoLibrary.Application.Abstractions;
+using Variant16.SystemInfoLibrary.Application.Services;
 using Variant16.SystemInfoLibrary.Infrastructure.Native;
 using Variant16.SystemInfoLibrary.Infrastructure.Runtime;
 using Variant16.SystemInfoLibrary.PublicApi;
@@ -13,9 +14,16 @@ public static class SystemInformationLibraryFacadeFactory
         var processIdentifierProvider = CreateProcessIdentifierProvider(nativeFunctionInvocationGuard);
         var operatingSystemPlatformInformationProvider = new RuntimeOperatingSystemPlatformInformationProvider();
 
+        var nativeFunctionErrorHandlingScenarios =
+            NativeFunctionErrorHandlingScenariosFactory.CreateNativeFunctionErrorHandlingScenarios(nativeFunctionInvocationGuard);
+
+        var nativeFunctionErrorHandlingScenarioRunner =
+            new NativeFunctionErrorHandlingScenarioRunner(nativeFunctionErrorHandlingScenarios);
+
         var systemInformationLibraryFacade = new SystemInformationLibraryFacade(
             processIdentifierProvider,
-            operatingSystemPlatformInformationProvider);
+            operatingSystemPlatformInformationProvider,
+            nativeFunctionErrorHandlingScenarioRunner);
 
         return systemInformationLibraryFacade;
     }

@@ -9,12 +9,16 @@ public sealed partial class SystemInformationLibraryFacade
 
     private readonly IOperatingSystemPlatformInformationProvider _operatingSystemPlatformInformationProvider;
 
+    private readonly INativeFunctionErrorHandlingScenarioRunner _nativeFunctionErrorHandlingScenarioRunner;
+
     public SystemInformationLibraryFacade(
         IProcessIdentifierProvider processIdentifierProvider,
-        IOperatingSystemPlatformInformationProvider operatingSystemPlatformInformationProvider)
+        IOperatingSystemPlatformInformationProvider operatingSystemPlatformInformationProvider,
+        INativeFunctionErrorHandlingScenarioRunner nativeFunctionErrorHandlingScenarioRunner)
     {
         _processIdentifierProvider = processIdentifierProvider;
         _operatingSystemPlatformInformationProvider = operatingSystemPlatformInformationProvider;
+        _nativeFunctionErrorHandlingScenarioRunner = nativeFunctionErrorHandlingScenarioRunner;
     }
 
     public ProcessIdentifierInformation GetCurrentProcessIdentifierInformation()
