@@ -1,6 +1,7 @@
 using Variant16.SystemInfoLibrary.Application.Abstractions;
 using Variant16.SystemInfoLibrary.Application.Services;
 using Variant16.SystemInfoLibrary.Infrastructure.Native;
+using Variant16.SystemInfoLibrary.Infrastructure.Reflection;
 using Variant16.SystemInfoLibrary.Infrastructure.Runtime;
 using Variant16.SystemInfoLibrary.PublicApi;
 
@@ -22,11 +23,14 @@ public static class SystemInformationLibraryFacadeFactory
             operatingSystemPlatformInformationProvider,
             nativeFunctionInvocationGuard);
 
+        var assemblyVersionInformationProvider = new ReflectionAssemblyVersionInformationProvider();
+
         var systemInformationLibraryFacade = new SystemInformationLibraryFacade(
             processIdentifierProvider,
             operatingSystemPlatformInformationProvider,
             nativeFunctionErrorHandlingScenarioRunner,
-            windowsApiLimitationInspector);
+            windowsApiLimitationInspector,
+            assemblyVersionInformationProvider);
 
         return systemInformationLibraryFacade;
     }
