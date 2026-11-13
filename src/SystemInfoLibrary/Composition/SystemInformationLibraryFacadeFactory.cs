@@ -1,4 +1,5 @@
 using Variant16.SystemInfoLibrary.Application.Abstractions;
+using Variant16.SystemInfoLibrary.Infrastructure.Native;
 using Variant16.SystemInfoLibrary.Infrastructure.Runtime;
 using Variant16.SystemInfoLibrary.PublicApi;
 
@@ -8,7 +9,8 @@ public static class SystemInformationLibraryFacadeFactory
 {
     public static SystemInformationLibraryFacade CreateDefaultSystemInformationLibraryFacade()
     {
-        var processIdentifierProvider = CreateProcessIdentifierProvider();
+        var nativeFunctionInvocationGuard = new NativeFunctionInvocationGuard();
+        var processIdentifierProvider = CreateProcessIdentifierProvider(nativeFunctionInvocationGuard);
         var operatingSystemPlatformInformationProvider = new RuntimeOperatingSystemPlatformInformationProvider();
 
         var systemInformationLibraryFacade = new SystemInformationLibraryFacade(
@@ -18,8 +20,16 @@ public static class SystemInformationLibraryFacadeFactory
         return systemInformationLibraryFacade;
     }
 
-    private static IProcessIdentifierProvider CreateProcessIdentifierProvider()
+    private static IProcessIdentifierProvider CreateProcessIdentifierProvider(
+        NativeFunctionInvocationGuard nativeFunctionInvocationGuard)
     {
+        if (OperatingSystem.IsWindows())
+        {
+            var nativeWindowsProcessIdentifierProvider = new NativeWindowsProcessIdentifierProvider(nativeFunctionInvocationGuard);
+
+            return nativeWindowsProcessIdentifierProvider;
+        }
+
         var managedRuntimeProcessIdentifierProvider = new ManagedRuntimeProcessIdentifierProvider();
 
         return managedRuntimeProcessIdentifierProvider;
