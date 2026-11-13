@@ -24,7 +24,8 @@ public sealed class ProjectDemonstrationStepsFactory
         {
             new LibraryProjectReferenceDemonstrationStep(_demonstrationReportWriter),
             new LibraryPublicMethodsDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
-            new NativeProcessIdentifierDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter)
+            new NativeProcessIdentifierDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
+            new NativeFunctionErrorHandlingDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter)
         };
 
         return projectDemonstrationSteps;
