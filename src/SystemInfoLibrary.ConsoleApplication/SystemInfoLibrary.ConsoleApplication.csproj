@@ -9,4 +9,8 @@
     <AssemblyName>SystemInfoLibrary.ConsoleApplication</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SystemInfoLibrary\SystemInfoLibrary.csproj" />
+  </ItemGroup>
+
 </Project>
