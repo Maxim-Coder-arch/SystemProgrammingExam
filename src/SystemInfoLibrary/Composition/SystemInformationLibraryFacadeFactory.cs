@@ -14,16 +14,19 @@ public static class SystemInformationLibraryFacadeFactory
         var processIdentifierProvider = CreateProcessIdentifierProvider(nativeFunctionInvocationGuard);
         var operatingSystemPlatformInformationProvider = new RuntimeOperatingSystemPlatformInformationProvider();
 
-        var nativeFunctionErrorHandlingScenarios =
-            NativeFunctionErrorHandlingScenariosFactory.CreateNativeFunctionErrorHandlingScenarios(nativeFunctionInvocationGuard);
+        var nativeFunctionErrorHandlingScenarioRunner = CreateNativeFunctionErrorHandlingScenarioRunner(
+            nativeFunctionInvocationGuard);
 
-        var nativeFunctionErrorHandlingScenarioRunner =
-            new NativeFunctionErrorHandlingScenarioRunner(nativeFunctionErrorHandlingScenarios);
+        var windowsApiLimitationInspector = CreateWindowsApiLimitationInspector(
+            processIdentifierProvider,
+            operatingSystemPlatformInformationProvider,
+            nativeFunctionInvocationGuard);
 
         var systemInformationLibraryFacade = new SystemInformationLibraryFacade(
             processIdentifierProvider,
             operatingSystemPlatformInformationProvider,
-            nativeFunctionErrorHandlingScenarioRunner);
+            nativeFunctionErrorHandlingScenarioRunner,
+            windowsApiLimitationInspector);
 
         return systemInformationLibraryFacade;
     }
@@ -41,5 +44,32 @@ public static class SystemInformationLibraryFacadeFactory
         var managedRuntimeProcessIdentifierProvider = new ManagedRuntimeProcessIdentifierProvider();
 
         return managedRuntimeProcessIdentifierProvider;
+    }
+
+    private static INativeFunctionErrorHandlingScenarioRunner CreateNativeFunctionErrorHandlingScenarioRunner(
+        NativeFunctionInvocationGuard nativeFunctionInvocationGuard)
+    {
+        var nativeFunctionErrorHandlingScenarios =
+            NativeFunctionErrorHandlingScenariosFactory.CreateNativeFunctionErrorHandlingScenarios(nativeFunctionInvocationGuard);
+
+        var nativeFunctionErrorHandlingScenarioRunner =
+            new NativeFunctionErrorHandlingScenarioRunner(nativeFunctionErrorHandlingScenarios);
+
+        return nativeFunctionErrorHandlingScenarioRunner;
+    }
+
+    private static IWindowsApiLimitationInspector CreateWindowsApiLimitationInspector(
+        IProcessIdentifierProvider processIdentifierProvider,
+        IOperatingSystemPlatformInformationProvider operatingSystemPlatformInformationProvider,
+        NativeFunctionInvocationGuard nativeFunctionInvocationGuard)
+    {
+        var windowsApiLimitationChecks = WindowsApiLimitationChecksFactory.CreateWindowsApiLimitationChecks(
+            processIdentifierProvider,
+            operatingSystemPlatformInformationProvider,
+            nativeFunctionInvocationGuard);
+
+        var windowsApiLimitationInspector = new WindowsApiLimitationInspector(windowsApiLimitationChecks);
+
+        return windowsApiLimitationInspector;
     }
 }

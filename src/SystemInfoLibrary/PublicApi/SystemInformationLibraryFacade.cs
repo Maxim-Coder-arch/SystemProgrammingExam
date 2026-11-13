@@ -11,14 +11,18 @@ public sealed partial class SystemInformationLibraryFacade
 
     private readonly INativeFunctionErrorHandlingScenarioRunner _nativeFunctionErrorHandlingScenarioRunner;
 
+    private readonly IWindowsApiLimitationInspector _windowsApiLimitationInspector;
+
     public SystemInformationLibraryFacade(
         IProcessIdentifierProvider processIdentifierProvider,
         IOperatingSystemPlatformInformationProvider operatingSystemPlatformInformationProvider,
-        INativeFunctionErrorHandlingScenarioRunner nativeFunctionErrorHandlingScenarioRunner)
+        INativeFunctionErrorHandlingScenarioRunner nativeFunctionErrorHandlingScenarioRunner,
+        IWindowsApiLimitationInspector windowsApiLimitationInspector)
     {
         _processIdentifierProvider = processIdentifierProvider;
         _operatingSystemPlatformInformationProvider = operatingSystemPlatformInformationProvider;
         _nativeFunctionErrorHandlingScenarioRunner = nativeFunctionErrorHandlingScenarioRunner;
+        _windowsApiLimitationInspector = windowsApiLimitationInspector;
     }
 
     public ProcessIdentifierInformation GetCurrentProcessIdentifierInformation()
