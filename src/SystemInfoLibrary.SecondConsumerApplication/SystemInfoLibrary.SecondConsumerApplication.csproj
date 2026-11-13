@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Variant16.SystemInfoLibrary.SecondConsumerApplication</RootNamespace>
+    <AssemblyName>SystemInfoLibrary.SecondConsumerApplication</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SystemInformationLibraryOutputDirectory>$(MSBuildThisFileDirectory)..\SystemInfoLibrary\bin\$(Configuration)\net9.0\</SystemInformationLibraryOutputDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SystemInfoLibrary\SystemInfoLibrary.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SystemInfoLibrary">
+      <HintPath>$(SystemInformationLibraryOutputDirectory)SystemInfoLibrary.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>
