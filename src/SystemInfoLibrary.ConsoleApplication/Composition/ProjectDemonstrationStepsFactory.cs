@@ -23,7 +23,8 @@ public sealed class ProjectDemonstrationStepsFactory
         var projectDemonstrationSteps = new List<IProjectDemonstrationStep>
         {
             new LibraryProjectReferenceDemonstrationStep(_demonstrationReportWriter),
-            new LibraryPublicMethodsDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter)
+            new LibraryPublicMethodsDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter),
+            new NativeProcessIdentifierDemonstrationStep(_systemInformationLibraryFacade, _demonstrationReportWriter)
         };
 
         return projectDemonstrationSteps;
