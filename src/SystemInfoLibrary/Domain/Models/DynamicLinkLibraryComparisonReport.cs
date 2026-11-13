@@ -1,0 +1,6 @@
+namespace Variant16.SystemInfoLibrary.Domain.Models;
+
+public sealed record DynamicLinkLibraryComparisonReport(
+    PortableExecutableFileInspectionResult ManagedDynamicLinkLibraryInspectionResult,
+    PortableExecutableFileInspectionResult NativeDynamicLinkLibraryInspectionResult,
+    IReadOnlyList<DynamicLinkLibraryComparisonCriterion> DynamicLinkLibraryComparisonCriteria);
