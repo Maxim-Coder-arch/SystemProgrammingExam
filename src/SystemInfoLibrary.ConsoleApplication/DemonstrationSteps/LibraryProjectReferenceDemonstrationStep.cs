@@ -40,6 +40,10 @@ public sealed class LibraryProjectReferenceDemonstrationStep : IProjectDemonstra
             systemInformationLibraryAssembly.Location);
 
         _demonstrationReportWriter.WriteDemonstrationLabeledValue(
+            "MVID библиотеки",
+            systemInformationLibraryAssembly.ManifestModule.ModuleVersionId.ToString());
+
+        _demonstrationReportWriter.WriteDemonstrationLabeledValue(
             "Библиотека есть в ссылках сборки потребителя",
             BooleanDisplayTextFormatter.FormatBooleanAsDisplayText(isSystemInformationLibraryReferencedByConsumerApplication));
 

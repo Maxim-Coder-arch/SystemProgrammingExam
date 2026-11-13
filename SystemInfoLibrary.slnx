@@ -2,5 +2,6 @@
   <Folder Name="/src/">
     <Project Path="src/SystemInfoLibrary/SystemInfoLibrary.csproj" />
     <Project Path="src/SystemInfoLibrary.ConsoleApplication/SystemInfoLibrary.ConsoleApplication.csproj" />
+    <Project Path="src/SystemInfoLibrary.SecondConsumerApplication/SystemInfoLibrary.SecondConsumerApplication.csproj" />
   </Folder>
 </Solution>
